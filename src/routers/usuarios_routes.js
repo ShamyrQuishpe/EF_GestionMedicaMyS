@@ -1,11 +1,13 @@
 import Router from 'express'
-
+import { confirmarEmail, loginUsuario, registrarUsuario } from '../controllers/usuario_controller.js'
 const router = Router()
 
-router.post('/registro')
-router.post('/login')
-router.get('/confirmar/:token')
+router.post('/usuarios/registro', registrarUsuario)
+router.post('/usuarios/login', loginUsuario)
+router.get('/usuarios/confirmar/:token')
 router.get('/usuarios')
-router.get('/recuperar-password')
-router.get('/recuperar-password/:token')
+router.get('/usuarios/recuperar_password')
+router.get('/usuarios/recuperar_password/:token')
+router.get("/usuarios/confirmar_email/:token", confirmarEmail);
 
+export default router

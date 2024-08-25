@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import mongoose, {Schema, model} from 'mongoose'
 import bcrypt from 'bcryptjs'
 
 const usuarioSchema = new Schema({
@@ -26,15 +26,15 @@ usuarioSchema.methods.encrypPassword = async function (password) {
     return passwordEncryp    
 }
 
-usuarioSchema.methods.encryptPassword = async function (password) {
+usuarioSchema.methods.matchPassword = async function (password) {
     const response = await bcrypt.compare(password,this.password)
     return response
 }
 
-usuarioSchema.methods.crearToken = function(){
+usuarioSchema.methods.createToken = function(){
     const tokenGenerado = this.token = Math.random().toString(36).slice(2)
     return tokenGenerado
 }
 
-export default Schema('usuarios', usuarioSchema)
+export default mongoose.model('usuarios', usuarioSchema)
 

@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from'dotenv'
 import cors from 'cors'
+import routerUsuarios from './routers/usuarios_routes.js'
 
 //inicializacion
 const app = express()
@@ -13,11 +14,16 @@ app.use(cors())
 //midlleware
 app.use(express.json())
 
-//variables globales
+
 
 //rutas
 app.get('/', (req,res)=>{
     res.send("Server on")
 })
+
+app.use("/api", routerUsuarios )
+
+//Endpoint 404
+app.use((req, res) => res.status(404).send("Endpoint no encontrado - 404"));
 
 export default app 
