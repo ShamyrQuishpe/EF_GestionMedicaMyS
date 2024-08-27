@@ -14,4 +14,4 @@ const especialidadSchema = new Schema({
     }
 })
 
-export default Schema('especialidades', especialidadSchema)
+export default model('especialidades', especialidadSchema)
