@@ -20,4 +20,4 @@ const citaSchema = new Schema({
 
 })
 
-export default Schema('citas', citaSchema)
+export default mongoose.model('citas', citaSchema)

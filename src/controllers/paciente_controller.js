@@ -1,6 +1,7 @@
 import pacientes from "../models/pacientes_model.js"
 import mongoose from "mongoose"
 
+//AGREGAR BUSQUEDA POR ID INDIVIDUALMENTE
 //pendiente si listar todos los pacientes o solo 1 por id 
 const listarPacientes = async(req,res)=>{
     const paciente = await pacientes.find()
