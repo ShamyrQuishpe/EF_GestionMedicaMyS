@@ -1,6 +1,13 @@
 import citas from '../models/citas_model.js'
 import mongoose from "mongoose"
 
+const listarCitasID = async(req, res)=>{
+    const {id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({msg:`Lo sentimos, no existe el id: ${id}`})
+    const cita = await citas.findById(id)
+    res.status(200).json(cita)
+}
+
 //pendiente si listar todas las especialidades o solo 1 por id 
 const listarCitas = async(req,res)=>{
     const cita = await citas.find()
@@ -55,6 +62,7 @@ const eliminarCita = async(req,res) => {
 
 export {
     listarCitas,
+    listarCitasID,
     registrarCitas,
     actualizarCitas,
     eliminarCita

@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { listarEspecialidades, registrarEspecialidad, actualizarEspecialidad, eliminarEspecialidad } from "../controllers/especialidad_controller.js";
+import verificar from '../middlewares/auth.js'
+import { listarEspecialidades, listarEspecialidadesID, registrarEspecialidad, actualizarEspecialidad, eliminarEspecialidad } from "../controllers/especialidad_controller.js";
 
 const router = Router()
 
-router.post('/especialidades/registro', registrarEspecialidad)
-router.get('/especialidades/listar', listarEspecialidades)
-router.put('/especialidades/:id', actualizarEspecialidad)
-router.delete('/especialidades/:id', eliminarEspecialidad)
+router.post('/especialidades/registro', verificar, registrarEspecialidad)
+router.get('/especialidades/listar', verificar, listarEspecialidades)
+router.get('/especialidades/:id', verificar, listarEspecialidadesID)
+router.put('/especialidades/:id', verificar, actualizarEspecialidad)
+router.delete('/especialidades/:id', verificar, eliminarEspecialidad)
 
 export default router

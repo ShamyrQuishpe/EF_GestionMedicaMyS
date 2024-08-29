@@ -1,11 +1,13 @@
 import { Router } from "express";
-import { registrarPaciente, listarPacientes, actualizarPaciente, eliminarPaciente } from "../controllers/paciente_controller.js";
+import verificar from '../middlewares/auth.js'
+import { registrarPaciente, listarPacientes, listarPacientesID, actualizarPaciente, eliminarPaciente } from "../controllers/paciente_controller.js";
 
 const router = Router()
 
-router.post("/pacientes/registro", registrarPaciente)
-router.get("/pacientes/listar", listarPacientes)
-router.put("/pacientes/:id", actualizarPaciente)
-router.delete("/pacientes/:id", eliminarPaciente) //verificar rol preguntar para implementar
+router.post("/pacientes/registro",verificar, registrarPaciente)
+router.get("/pacientes/listar", verificar, listarPacientes)
+router.get("/pacientes/:id", verificar, listarPacientesID)
+router.put("/pacientes/:id", verificar, actualizarPaciente)
+router.delete("/pacientes/:id", verificar, eliminarPaciente) //verificar rol preguntar para implementar
 
 export default router

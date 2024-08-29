@@ -1,6 +1,13 @@
 import especialidades from "../models/especialidades_model.js"
 import mongoose from "mongoose"
 
+const listarEspecialidadesID = async(req, res)=>{
+    const {id} = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({msg:`Lo sentimos, no existe el id: ${id}`})
+    const especialidad = await especialidades.findById(id)
+    res.status(200).json(especialidad)
+}
+
 //pendiente si listar todas las especialidades o solo 1 por id 
 const listarEspecialidades = async(req,res)=>{
     const especialidad = await especialidades.find()
@@ -55,6 +62,7 @@ const eliminarEspecialidad = async(req,res) => {
 
 export {
     listarEspecialidades,
+    listarEspecialidadesID,
     registrarEspecialidad,
     actualizarEspecialidad,
     eliminarEspecialidad

@@ -1,4 +1,5 @@
 import Router from 'express'
+import verificar from '../middlewares/auth.js'
 import { confirmarEmail, loginUsuario, registrarUsuario } from '../controllers/usuario_controller.js'
 const router = Router()
 
