@@ -9,10 +9,10 @@ const autenticar = async(req,res,next)=>{
 
     try{
         const {id, rol} = jwt.verify(authorization.split(" ")[1], process.env.JWT_SECRET)
-        if(rol === "usuario"){
+
             req.usuario = await usuarios.findById(id).lean().select("-password")
             next()
-        }
+
     }catch(err){
         const e = new Error("Formato de token no valido")
         return res.status(404).json({msg: e.message})
