@@ -1,21 +1,6 @@
-import { enviarCorreo } from "../config/nodemailer.js"
 import usuarios from "../models/usuarios_model.js"
 import generarJWT from "../helpers/JWT.js"
 import mongoose from "mongoose"
-
-
-const confirmarEmail = async(req, res)=>{    
-    if(!(req.params.token)) return res.status(400).json({
-        msg:"Lo sentimos no hemos podido verificar su cuenta"})
-    const usuario = await usuarios.findOne({token: req.params.token})
-    if(!usuario?.token) return res.status(404).json({
-        msg: "La cuenta ya ha sido verificada"
-    })
-    usuario.token = null
-    usuario.confirmarEmail = true
-    await usuario.save()
-    res.status(200).json({msg: "Token confirmado, ya puedes iniciar sesión"})
-}
 
 const loginUsuario = async(req, res)=>{
     const {email, password} = req.body
@@ -47,7 +32,6 @@ const loginUsuario = async(req, res)=>{
 
 const registrarUsuario = async(req, res)=>{
     const {email, password} = req.body
-    console.log("hola")
     if(Object.values(req.body).includes("")) return res.status(400).json({
         msg: "Lo sentimos debe llenar todos los campos"
     })
@@ -60,9 +44,8 @@ const registrarUsuario = async(req, res)=>{
     nuevoUsuario.password = await nuevoUsuario.encrypPassword(password)
 
     const token =  nuevoUsuario.createToken()
-    await enviarCorreo(email, token)
     await nuevoUsuario.save()
-    res.status(200).json({msg: "Revisa tu correo para verificar tu cuenta"})
+    res.status(200).json({msg: "Usuario registrado con exito"})
 }
 
 const perfil = (req, res) => {
@@ -82,7 +65,6 @@ const perfil = (req, res) => {
 
 
 export {
-    confirmarEmail,
     loginUsuario,
     registrarUsuario,
     perfil
