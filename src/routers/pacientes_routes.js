@@ -1,10 +1,11 @@
 import { Router } from "express";
 import verificar from '../middlewares/auth.js'
+import { validacionPacientes } from "../middlewares/validacion.js";
 import { registrarPaciente, listarPacientes, listarPacientesID, actualizarPaciente, eliminarPaciente } from "../controllers/paciente_controller.js";
 
 const router = Router()
 
-router.post("/pacientes/registro",verificar, registrarPaciente)
+router.post("/pacientes/registro",verificar,validacionPacientes, registrarPaciente)
 router.get("/pacientes/listar", verificar, listarPacientes)
 router.get("/pacientes/:id", verificar, listarPacientesID)
 router.put("/pacientes/:id", verificar, actualizarPaciente)
